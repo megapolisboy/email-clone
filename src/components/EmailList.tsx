@@ -13,6 +13,7 @@ import {
 } from "@material-ui/icons";
 import React from "react";
 import "../styles/EmailList.css";
+import EmailRow from "./EmailRow";
 import Section from "./Section";
 
 const EmailList: React.FC = () => {
@@ -52,7 +53,15 @@ const EmailList: React.FC = () => {
         <Section Icon={LocalOffer} title="Promotion" color="green" />
       </div>
 
-      <div className="emailList__list"></div>
+      <div className="emailList__list">
+        <EmailRow
+          title="Twitch"
+          subject="Hey fellow streamer!"
+          description="This is a test"
+          time="10pm"
+          id={1}
+        />
+      </div>
     </div>
   );
 };
