@@ -1,9 +1,11 @@
 import { Button } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
+import { serverTimestamp } from "firebase/firestore";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { closeSendMessage } from "../features/mailSlice";
+import { addEmail } from "../features/userSlice";
 import "../styles/SendMail.css";
 
 interface FormData {
@@ -24,6 +26,15 @@ const SendMail: React.FC = () => {
 
   const onSubmit = (data: FormData) => {
     console.log(data);
+    dispatch(
+      addEmail({
+        to: data.to,
+        subject: data.subject,
+        message: data.message,
+        timestamp: serverTimestamp(),
+      })
+    );
+    dispatch(closeSendMessage());
   };
 
   return (

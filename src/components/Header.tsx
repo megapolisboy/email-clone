@@ -9,8 +9,17 @@ import {
 } from "@material-ui/icons";
 import "../styles/Header.css";
 import React from "react";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { selectCurrentUser, signOut } from "../features/userSlice";
 
 const Header: React.FC = () => {
+  const user = useAppSelector(selectCurrentUser);
+  const dispatch = useAppDispatch();
+
+  const logOut = () => {
+    dispatch(signOut());
+  };
+
   return (
     <div className="header">
       <div className="header__left">
@@ -34,7 +43,7 @@ const Header: React.FC = () => {
         <IconButton>
           <Notifications />
         </IconButton>
-        <Avatar />
+        <Avatar src={user?.photoURL || ""} onClick={logOut} />
       </div>
     </div>
   );

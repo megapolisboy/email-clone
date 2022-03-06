@@ -1,0 +1,32 @@
+.login__emblem {
+  object-fit: contain;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 300px;
+  height: 200px;
+  margin-left: 5px;
+}
+
+.login__emblem > .MuiSvgIcon-root {
+  font-size: 100px;
+  color: rgb(226, 226, 226);
+}
+
+.login__emblem > h1 {
+  color: gray;
+  font-weight: 500;
+  font-size: 60px;
+}
+
+.login {
+  background-color: #f2f2f2;
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+
+.login__container {
+  display: flex;
+  flex-direction: column;
+}

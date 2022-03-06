@@ -2,10 +2,12 @@ import { Checkbox, IconButton } from "@material-ui/core";
 import { LabelImportantOutlined, StarBorderOutlined } from "@material-ui/icons";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../app/hooks";
+import { selectMail } from "../features/mailSlice";
 import "../styles/EmailRow.css";
 
 interface EmailRowProps {
-  id: number;
+  id: string;
   title: string;
   subject: string;
   description: string;
@@ -20,9 +22,15 @@ const EmailRow: React.FC<EmailRowProps> = ({
   time,
 }) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const openMail = () => {
+    dispatch(selectMail({ id, title, subject, description, time }));
+    navigate("/mail");
+  };
 
   return (
-    <div onClick={() => navigate("/mail")} className="emailRow">
+    <div onClick={openMail} className="emailRow">
       <div className="emailRow__options">
         <Checkbox />
         <IconButton>

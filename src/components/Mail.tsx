@@ -12,11 +12,15 @@ import {
   WatchLater,
 } from "@material-ui/icons";
 import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { selectSelectedMail } from "../features/mailSlice";
 import "../styles/Mail.css";
 
 const Mail: React.FC = () => {
   const navigate = useNavigate();
+  const selectedMail = useSelector(selectSelectedMail);
+
   return (
     <div className="mail">
       <div className="mail__tools">
@@ -54,14 +58,14 @@ const Mail: React.FC = () => {
       </div>
       <div className="mail__body">
         <div className="mail__bodyHeader">
-          <h2>Subject</h2>
+          <h2>{selectedMail?.subject}</h2>
           <LabelImportant className="mail__important" />
-          <p>Title</p>
-          <p className="mail__time">10pm</p>
+          <p>{selectedMail?.title}</p>
+          <p className="mail__time">{selectedMail?.time}</p>
         </div>
 
         <div className="mail__message">
-          <p>This is a message</p>
+          <p>{selectedMail?.description}</p>
         </div>
       </div>
     </div>

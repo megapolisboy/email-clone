@@ -11,12 +11,22 @@ import {
   Redo,
   Settings,
 } from "@material-ui/icons";
-import React from "react";
+import React, { useEffect } from "react";
+import nextId from "react-id-generator";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { fetchEmails, selectEmails } from "../features/userSlice";
 import "../styles/EmailList.css";
 import EmailRow from "./EmailRow";
 import Section from "./Section";
 
 const EmailList: React.FC = () => {
+  const emails = useAppSelector(selectEmails);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchEmails());
+  }, [dispatch]);
+
   return (
     <div className="emailList">
       <div className="emailList__settings">
@@ -54,13 +64,19 @@ const EmailList: React.FC = () => {
       </div>
 
       <div className="emailList__list">
-        <EmailRow
-          title="Twitch"
-          subject="Hey fellow streamer!"
-          description="This is a test"
-          time="10pm"
-          id={1}
-        />
+        {emails.map((email) => {
+          const newId = nextId();
+          return (
+            <EmailRow
+              id={newId}
+              key={newId}
+              title={email.to}
+              subject={email.subject}
+              description={email.message}
+              time={new Date(email.timestamp?.seconds * 1000).toUTCString()}
+            />
+          );
+        })}
       </div>
     </div>
   );
