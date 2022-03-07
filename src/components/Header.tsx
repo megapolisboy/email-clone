@@ -43,7 +43,11 @@ const Header: React.FC = () => {
         <IconButton>
           <Notifications />
         </IconButton>
-        <Avatar src={user?.photoURL || ""} onClick={logOut} />
+        <Avatar
+          src={user?.photoURL || ""}
+          onClick={logOut}
+          className="header__avatar"
+        />
       </div>
     </div>
   );

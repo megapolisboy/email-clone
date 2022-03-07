@@ -28,11 +28,13 @@ export const userSlice = createSlice({
 
     signOut: (state) => {
       signOutWithFirebase();
-      state.currentUser = getUserFromFirebase();
+      state.currentUser = null;
     },
 
     setUser: (state, action: PayloadAction<User | null>) => {
-      state.currentUser = action.payload;
+      if (!state.currentUser) {
+        state.currentUser = action.payload;
+      }
     },
 
     addEmail: (state, action: PayloadAction<Email>) => {},

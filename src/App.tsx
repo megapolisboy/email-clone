@@ -10,26 +10,23 @@ import Mail from "./components/Mail";
 import SendMail from "./components/SendMail";
 import Sidebar from "./components/Sidebar";
 import { selectSendMessageIsOpen } from "./features/mailSlice";
-import { selectCurrentUser, signIn } from "./features/userSlice";
+import { selectCurrentUser, setUser, signIn } from "./features/userSlice";
+import { getUserFromFirebase } from "./firebase";
 
 function App() {
   const sendMessageIsOpen = useAppSelector(selectSendMessageIsOpen);
-  const user = useAppSelector(selectCurrentUser);
+  const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
-
-  const logIn = () => {
-    dispatch(signIn());
-  };
 
   useEffect(() => {
     onAuthStateChanged(getAuth(), (user) => {
-      if (user) logIn();
+      if (user) dispatch(setUser(user));
     });
   }, []);
 
   return (
     <BrowserRouter>
-      {!user ? (
+      {!currentUser ? (
         <Login />
       ) : (
         <div className="app">
